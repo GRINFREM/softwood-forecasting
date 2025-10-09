@@ -23,7 +23,7 @@ If you’re contributing via a fork (instead of direct collaborator access):
 
 ```bash
 # Clone your fork instead
-git clone https://github.com/<your-username>/softwood-forecasting.git
+git clone https://github.com/GRINFREM/softwood-forecasting.git
 cd softwood-forecasting
 ```
 
