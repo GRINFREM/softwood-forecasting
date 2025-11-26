@@ -1,3 +1,194 @@
+# 📊 Canadian Softwood Lumber Export Forecasting
+
+A comprehensive time series forecasting project that predicts Canadian softwood lumber exports to the United States using advanced statistical modeling and machine learning techniques. This production-ready model achieves **7.39% test MAPE**, outperforming industry benchmarks and enabling reliable 1-2 quarter ahead planning for strategic business decision-making.
+
+---
+
+## 🎯 Project Overview
+
+### Business Context
+
+This project addresses a **$10B+ annual trade relationship** between Canada and the United States in softwood lumber—one of the most significant bilateral trade flows in North America. The forecasting model directly supports strategic decision-making for:
+
+- **Sawmill Operators**: Production scheduling, workforce planning, inventory management
+- **Export Traders**: Price hedging, contract negotiation with U.S. buyers
+- **Policymakers**: Trade negotiations, forest management quotas, economic impact studies
+- **Financial Analysts**: Equity research on forestry companies, commodity trading strategies
+
+### Key Objectives
+
+1. **Develop a production-ready forecasting model** with exceptional accuracy (< 10% MAPE)
+2. **Integrate economic indicators** (U.S. housing market data) as exogenous regressors
+3. **Provide scenario analysis** for business planning under different economic conditions
+4. **Enable risk quantification** through confidence intervals and uncertainty estimation
+5. **Create actionable business intelligence** from raw economic time series data
+
+---
+
+## 🔬 Methodology & Technical Approach
+
+### Data Pipeline
+
+The project implements a comprehensive end-to-end data processing pipeline:
+
+1. **Data Extraction & Merging**
+   - Integration of multiple data sources (Statistics Canada, U.S. Census Bureau, Bloomberg)
+   - Quarterly time series data spanning multiple decades
+   - Alignment of temporal frequencies and handling of missing periods
+
+2. **Data Quality & Imputation**
+   - Comprehensive missing value detection and analysis
+   - **STL (Seasonal and Trend decomposition using Loess)** for sophisticated imputation
+   - Outlier detection using multiple statistical methods (IQR, Z-score, isolation forest)
+   - Robust handling of irregular patterns and structural breaks
+
+3. **Feature Engineering**
+   - **Lag features**: Historical export volumes at multiple time horizons
+   - **Rolling window statistics**: Moving averages, standard deviations, trends
+   - **Economic regressors**: 4 key U.S. housing market indicators:
+     - U.S. Housing Starts
+     - U.S. Building Permits
+     - U.S. New Home Sales
+     - U.S. Building Permits (Single-Family Housing)
+
+4. **Time Series Validation**
+   - **ADF (Augmented Dickey-Fuller) test** for stationarity confirmation
+   - **ACF/PACF analysis** for seasonal pattern identification
+   - Chronological train/test split (80/20) to prevent data leakage
+
+### Forecasting Model
+
+**Prophet** (Facebook's time series forecasting library) with the following configuration:
+
+- **Seasonality Mode**: Multiplicative (seasonal effects scale with trend)
+- **Yearly Seasonality**: Enabled to capture annual construction cycles
+- **Exogenous Regressors**: 4 U.S. housing market indicators
+- **Uncertainty Intervals**: 95% confidence bands for risk assessment
+- **Changepoint Detection**: Automatic identification of trend shifts
+
+**Why Prophet?**
+- Handles strong seasonal patterns (quarterly construction cycles)
+- Robust to missing data and outliers
+- Allows integration of external regressors
+- Provides interpretable component decomposition (trend, seasonality, regressors)
+- Automatic uncertainty quantification
+
+### Model Performance
+
+- **Test MAPE**: **7.39%** (exceptional vs. 10-20% industry benchmark)
+- **Minimal Bias**: Well-calibrated predictions with balanced over/under-predictions
+- **Statistical Validation**: Stationarity confirmed (ADF p-value: 0.0354)
+- **Seasonal Patterns**: 20-25% quarterly swings captured accurately
+
+---
+
+## 📈 Key Features & Capabilities
+
+### 1. Production-Ready Forecasting
+- Reliable 1-2 quarter ahead predictions
+- 95% confidence intervals for risk assessment
+- Automatic retraining procedures documented
+
+### 2. Scenario Analysis
+Comprehensive "what-if" analysis for different economic conditions:
+- **Boom Scenario**: +20% housing market indicators
+- **Baseline Scenario**: Current trends maintained
+- **Slowdown Scenario**: -10% housing market indicators
+- **Recession Scenario**: -30% housing market indicators
+
+Reveals **$500M revenue swing** between boom and recession scenarios, enabling strategic planning.
+
+### 3. Component Decomposition
+- **Trend Analysis**: Long-term export volume movements
+- **Seasonal Patterns**: Quarterly construction cycle identification
+- **Regressor Contributions**: Quantified impact of each housing market indicator
+- **Visual Communication**: Executive-ready visualizations
+
+### 4. Bias Correction Framework
+- Systematic bias detection using Mean Percentage Error (MPE)
+- Automatic correction factor calculation when bias exceeds thresholds
+- Performance improvement validation
+
+### 5. Comprehensive Evaluation
+- Multiple metrics: MAPE, MAE, RMSE, MPE
+- Residual analysis and error distribution
+- Confidence interval coverage assessment
+- Honest discussion of limitations and constraints
+
+---
+
+## 📁 Project Structure
+
+```
+softwood-forecasting/
+├── main_pipeline.ipynb          # Main analysis notebook (complete pipeline)
+├── data/
+│   ├── raw/                      # Original data sources
+│   │   └── Bloomberg_Data.xlsx   # Economic indicators
+│   └── processed/                # Cleaned and processed datasets
+│       ├── bloomberg_master_dataframe.csv
+│       └── bloomberg_master_dataframe.xlsx
+├── environment.yml               # Conda environment specification
+├── requirements.txt             # Python package dependencies
+└── README.md                     # This file
+```
+
+---
+
+## 🚀 Getting Started
+
+The notebook (`main_pipeline.ipynb`) is organized into 8 major sections:
+
+1. **Data ETL**: Extraction, transformation, and loading of raw data
+2. **Modeling Pipeline**: Missing value imputation, feature engineering, model training
+3. **Model Performance Analysis**: Comprehensive evaluation and validation
+4. **Business Applications**: Strategic recommendations and use cases
+5. **Advanced Analysis**: Component decomposition, bias correction
+6. **Scenario Planning**: Housing market sensitivity analysis
+7. **Production Deployment**: Monitoring, retraining, and maintenance guidelines
+8. **Final Conclusion**: Project summary and key achievements
+
+### Running the Notebook
+
+1. Follow the [Environment Setup](#⚙️-environment-setup) instructions below
+2. Open `main_pipeline.ipynb` in Jupyter Lab/Notebook
+3. Select the `softwood-forecasting-env` kernel
+4. Run cells sequentially (the notebook is designed to be executed from top to bottom)
+
+---
+
+## 📊 Key Insights & Findings
+
+1. **U.S. Housing Market Dominance**: Export volumes are tightly coupled to U.S. residential construction activity—housing indicators provide 3-6 month lead time for export volume changes.
+
+2. **Seasonal Predictability**: Strong 20-25% quarterly swings due to construction seasonality (Q2/Q3 peak demand periods).
+
+3. **Model Reliability**: Minimal bias with excellent confidence interval coverage, confirming well-calibrated predictions suitable for business decision-making.
+
+4. **Forecast Horizon**: Model optimized for 1-2 quarters ahead (79 observations constrain longer-term forecasts).
+
+5. **External Risk Factors**: Trade policy changes and supply shocks require scenario analysis (not captured in base model but addressed through scenario planning).
+
+---
+
+## 🎓 Technical Skills Demonstrated
+
+- **Time Series Analysis**: Stationarity testing (ADF), ACF/PACF analysis, seasonal decomposition
+- **Forecasting Methods**: Prophet (Bayesian structural time series)
+- **Data Processing**: STL decomposition, missing value imputation, outlier detection
+- **Feature Engineering**: Lag features, rolling windows, exogenous regressors
+- **Model Evaluation**: MAPE, MAE, RMSE, bias analysis, confidence interval coverage
+- **Business Communication**: Translating technical results into actionable recommendations
+- **Statistical Rigor**: Proper train/test splitting, data leakage prevention, comprehensive validation
+
+---
+
+## 📝 License
+
+See [LICENSE](LICENSE) file for details.
+
+---
+
 ## 🧭 Accessing the Repository Locally
 
 If you’ve been added as a collaborator or want to contribute to this project, follow the steps below to set up the repository on your local machine.
